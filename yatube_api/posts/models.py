@@ -23,9 +23,9 @@ class Post(models.Model):
     )
     image = models.ImageField(
         upload_to='posts/', null=True, blank=True
-    )  # поле для картинки
+    )
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE,
+        Group, on_delete=models.SET_NULL,
         related_name="posts", blank=True, null=True
     )
 
@@ -38,7 +38,7 @@ class Comment(models.Model):
         User, on_delete=models.CASCADE, related_name='comments'
     )
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='comments'
+        Post, on_delete=models.CASCADE(), related_name='comments'
     )
     text = models.TextField()
     created = models.DateTimeField(
